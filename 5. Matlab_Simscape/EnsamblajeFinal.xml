@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="06/14/26||22:19:50" using="Simscape Multibody Link Version 7.4" from="SolidWorks 33.0.0"/>
+<ModelUnits mass="kilogram" length="centimeter"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="EnsamblajeFinal" uid="EnsamblajeFinal" version="153">
+<AssemblyFile name="EnsamblajeFinal.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="Parte2-1" uid="Parte2-1" entityUid="Parte2*:*Predeterminado">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.010539999999999996 0 0.12569999999999998</Translation>
+</Transform>
+</Instance>
+<Instance name="Parte1-1" uid="Parte1-1" grounded="true" entityUid="Parte1*:*Predeterminado">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0 0 0</Translation>
+</Transform>
+</Instance>
+<Instance name="CremalleraDesde0-1" uid="CremalleraDesde0-1" entityUid="CremalleraDesde0*:*Predeterminado">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.32797779520868686 -1.5200587151002004e-05 0.13850000000000051</Translation>
+</Transform>
+</Instance>
+<Instance name="Parte3-1" uid="Parte3-1" entityUid="Parte3*:*Predeterminado">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.16607779520868673 -1.5200587151015243e-05 0.13440000000000044</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Coincident name="Coincidente1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Parte1-1</Uid>
+</InstancePath>
+<Position>0.0096113917900943827 -0.0014833026638201127 0.12570000000000001</Position>
+<Axis>0 1.0614028251439894e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Parte2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>7.2939691936548036e-16 0 -1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concéntrica1">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Parte1-1</Uid>
+</InstancePath>
+<Position>0.010539999999999997 0 0.12570000000000001</Position>
+<Axis>0 1.0614028251439894e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Parte2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>7.2939691936548036e-16 0 -1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincidente2">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Parte2-1</Uid>
+</InstancePath>
+<Position>0.15460904204120646 -0.0014984124917335503 0.0087000000000004574</Position>
+<Axis>-5.5510053821103277e-16 1.1231802181723438e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Parte3-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concéntrica2">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Parte2-1</Uid>
+</InstancePath>
+<Position>0.15553779520868674 -1.5200587151021295e-05 0.0087000000000004574</Position>
+<Axis>-5.5510053821103277e-16 1.1231802181723438e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Parte3-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concéntrica3">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Parte3-1</Uid>
+</InstancePath>
+<Position>0.16190000000000013 0 0.0040999999999999925</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>CremalleraDesde0-1</Uid>
+</InstancePath>
+<Position>0 0 0.053999999999999992</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Parallel name="Paralelo1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Parte3-1</Uid>
+</InstancePath>
+<Position>0.17300000000000007 -0.0020000000000000044 -0.044023225512317896</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>CremalleraDesde0-1</Uid>
+</InstancePath>
+<Position>0.011070000000000024 0.011500000000000005 -0.054000000000000006</Position>
+<Axis>1 1.5084551965015709e-16 0</Axis>
+</ConstraintGeometry>
+</Parallel>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+</Assemblies>
+<Parts>
+<Part name="CremalleraDesde0" uid="CremalleraDesde0*:*Predeterminado" version="148">
+<ModelUnits mass="kilogram" length="centimeter"/>
+<PartFile name="CremalleraDesde0.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.059830751926282948</Mass>
+<CenterOfMass>-0.0010073132914310489 1.8435541749427118e-10 0.00032759739917894213</CenterOfMass>
+<Inertia>6.3112031331643458e-05 6.2704405175176045e-05 8.1589932200799003e-06 4.5930394908779196e-14 -1.4852892644228219e-07 -9.2971862129906016e-14</Inertia>
+</MassProperties>
+<GeometryFile name="CremalleraDesde0_Predeterminado_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.69411764705882351" g="0.098039215686274508" b="0.098039215686274508" a="1"/>
+<Diffuse r="0.69411764705882351" g="0.098039215686274508" b="0.098039215686274508" a="1"/>
+<Specular r="0.34705882352941175" g="0.049019607843137254" b="0.049019607843137254" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Parte1" uid="Parte1*:*Predeterminado" version="119">
+<ModelUnits mass="kilogram" length="centimeter"/>
+<PartFile name="Parte1.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>1.5816756007778852</Mass>
+<CenterOfMass>9.2308050471933881e-05 1.0434490342751922e-09 0.037490317180818605</CenterOfMass>
+<Inertia>0.0031160028439135789 0.0031301575803691461 0.0040020585337105785 -1.6066554601350752e-10 -1.117922884470695e-05 -7.4412577953519448e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Parte1_Predeterminado_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Parte2" uid="Parte2*:*Predeterminado" version="123">
+<ModelUnits mass="kilogram" length="centimeter"/>
+<PartFile name="Parte2.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.34054381760822522</Mass>
+<CenterOfMass>0.083113449367787487 -8.0940976844394346e-06 -0.0025668801571379261</CenterOfMass>
+<Inertia>0.0002103729907443588 0.001489144575278725 0.0015660776910248614 -1.5815823056392073e-08 0.0001613757562749287 5.1128388030807651e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Parte2_Predeterminado_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Parte3" uid="Parte3*:*Predeterminado" version="124">
+<ModelUnits mass="kilogram" length="centimeter"/>
+<PartFile name="Parte3.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.32324660921199505</Mass>
+<CenterOfMass>0.076558237873079596 0.0051898258381127878 0.0070439649984792869</CenterOfMass>
+<Inertia>0.00020444221519292464 0.0012433807043268138 0.001404019209090294 -1.319677900450397e-05 -2.9411585135717941e-05 -0.00010203574676965669</Inertia>
+</MassProperties>
+<GeometryFile name="Parte3_Predeterminado_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimscapeMultibodyImportXML>
