@@ -10,10 +10,16 @@ La asignación de los ejes de referencia se realizó siguiendo la convención de
 
 Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre].[Extensión]`, usando los mismos códigos de elemento definidos en la carpeta [`1. Piezas y Ensambles SolidWorks`](../1.%20Piezas%20y%20Ensambles%20SolidWorks) para que sea fácil relacionar cada plano con su pieza correspondiente.
 
+<div align="center">
+
 | Prefijo | Significado |
 |---|---|
 | `PLN-` | Plano en SolidWorks (`.SLDDRW`) |
 | `PDF-` | Versión exportada en PDF del mismo plano |
+
+</div>
+
+<div align="center">
 
 | Código | Elemento |
 |---|---|
@@ -26,7 +32,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre].[Extensión]`, usan
 | `06` | Soporte del servo |
 | `08` | Ensamblaje completo del robot |
 
+</div>
+
 ## Contenido
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -38,6 +48,8 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre].[Extensión]`, usan
 | `PLN-05_TapaEslabon.SLDDRW` | Plano de la tapa usada en los eslabones. |
 | `PLN-06_SoporteServo.SLDDRW` | Plano del soporte del servomotor. |
 | `PLN-08_EnsambleCompleto.SLDDRW` | Plano general del ensamblaje completo del robot. |
+
+</div>
 
 ## Carpeta `PDF/`
 
