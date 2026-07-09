@@ -14,12 +14,18 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 
 **Prefijos:**
 
+<div align="center">
+
 | Prefijo | Significado |
 |---|---|
 | `PZA-` | Pieza individual |
 | `ASM-` | Ensamblaje |
 
+</div>
+
 **Códigos por elemento:**
+
+<div align="center">
 
 | Código | Elemento |
 |---|---|
@@ -33,7 +39,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `07` | Servo horn / servo genérico |
 | `08` | Ensamblaje completo del robot |
 
+</div>
+
 ## Base fija
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -41,7 +51,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `PZA-00_BaseFija_ConServo.SLDPRT` | Base fija con servomotor integrado. Exportada como pieza única desde `ASM-00_BaseFija_ConServo.SLDASM` para simplificar el modelo de cara a Matlab. |
 | `ASM-00_BaseFija_ConServo.SLDASM` | Ensamblaje de la base fija con su servomotor. |
 
+</div>
+
 ## Eslabón 1
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -49,7 +63,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `PZA-01_Eslabon1_Completo.SLDPRT` | Eslabón 1 con tapa, soporte y servomotor integrados. Exportada como pieza única desde `ASM-01_Eslabon1_ConServo.SLDASM` para simplificar el modelo de cara a Matlab. |
 | `ASM-01_Eslabon1_ConServo.SLDASM` | Ensamblaje del eslabón 1 con tapa, soporte y servomotor. |
 
+</div>
+
 ## Eslabón 2
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -57,7 +75,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `PZA-02_Eslabon2_Completo.SLDPRT` | Eslabón 2 con tapa, piñón y servomotor integrados. Exportada como pieza única desde `ASM-02_Eslabon2_ConServo.SLDASM` para simplificar el modelo de cara a Matlab. |
 | `ASM-02_Eslabon2_ConServo.SLDASM` | Ensamblaje del eslabón 2 con tapa, piñón y servomotor. |
 
+</div>
+
 ## Piñón
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -65,7 +87,11 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `PZA-03_Piñon_6Horn.SLDPRT` | Piñón con los 6 horns del servomotor integrados, exportado como pieza única desde `ASM-03_Piñon_6Horn.SLDASM`. |
 | `ASM-03_Piñon_6Horn.SLDASM` | Ensamblaje del piñón con los 6 horns del servomotor. |
 
+</div>
+
 ## Otros componentes
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
@@ -75,11 +101,17 @@ Los archivos siguen el formato `[Prefijo]-[Código]_[Nombre]_[Estado].[Extensió
 | `PZA-07_ServoHorn.SLDPRT` | Servo horn individual. |
 | `ASM-07_ServoGenerico.SLDASM` | Ensamblaje genérico del servomotor, sin la pieza a la que se acopla. |
 
+</div>
+
 ## Ensamblaje completo
+
+<div align="center">
 
 | Archivo | Descripción |
 |---|---|
 | `ASM-08_EnsambleCompleto.SLDASM` | Ensamblaje completo del robot: base fija, eslabón 1, eslabón 2 y cremallera, usando las mínimas relaciones de posición posibles para mantener el modelo simple. |
+
+</div>
 
 ## Notas de diseño
 
