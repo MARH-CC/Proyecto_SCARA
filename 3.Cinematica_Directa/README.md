@@ -4,11 +4,15 @@ Este documento desarrolla la **cinemática directa** del robot SCARA del proyect
 
 El robot cuenta con **3 grados de libertad activos**:
 
+<div align="center">
+
 | Articulación | Tipo | Variable |
 |---|---|---|
 | 1 | Rotacional | $\theta_1$ |
 | 2 | Rotacional | $\theta_2$ |
 | 3 | Prismática | $d_3$ |
+
+</div>
 
 Para comprobar la consistencia del modelo, la cinemática directa se resolvió por **dos métodos independientes**:
 
@@ -25,7 +29,9 @@ Antes de entrar en las matrices, estas dos vistas muestran cómo se ubicaron los
 
 ### Vista general (isométrica)
 
-![Vista general del SCARA con sistemas de referencia](images/vista_general.png)
+<p align="center">
+  <img src="images/vista_general.png" alt="Vista general del SCARA con sistemas de referencia" width="500">
+</p>
 
 Aquí se ve la cadena completa de eslabones desde la base ($\{0\}$) hasta el efector final ($\{4\}$):
 
@@ -39,7 +45,9 @@ Esta vista es la que sustenta directamente las traslaciones y rotaciones usadas 
 
 ### Vista superior (plano XY)
 
-![Vista superior del SCARA — plano de trabajo](images/vista_superior.png)
+<p align="center">
+  <img src="images/vista_superior.png" alt="Vista superior del SCARA — plano de trabajo" width="450">
+</p>
 
 Esta vista, tomada desde arriba, muestra el plano en el que realmente se mueve el efector final (el eje $z$ queda "de frente" al lector). Aquí se aprecia con claridad la construcción geométrica que da origen a las componentes $p_x$ y $p_y$ de la posición final:
 
@@ -146,6 +154,8 @@ Para cada eslabón se definieron los ejes $z_i$ y $x_i$ siguiendo la convención
 
 **Ejes $z_i$** (eje de cada articulación):
 
+<div align="center">
+
 | $i$ | Regla | Resultado |
 |---|---|---|
 | 1 | $x_{i-1} = x_0 \Rightarrow x_i = x_1$, con $z_0$ fijo | Distancia respecto a $z_0$: $h_1$ |
@@ -153,7 +163,11 @@ Para cada eslabón se definieron los ejes $z_i$ y $x_i$ siguiendo la convención
 | 3 | $x_{i-1}=x_2 \Rightarrow x_i=x_3$, con $z_2$ fijo | Distancia respecto a $z_2$: $h_3$ |
 | 4 | $x_{i-1}=x_3 \Rightarrow x_i=x_4$, con $z_3$ fijo | Distancia respecto a $z_3$: $h_4+d_3$ |
 
+</div>
+
 **Ejes $x_i$** (perpendicular común entre $z_{i-1}$ y $z_i$):
+
+<div align="center">
 
 | $i$ | Regla | Resultado |
 |---|---|---|
@@ -162,7 +176,11 @@ Para cada eslabón se definieron los ejes $z_i$ y $x_i$ siguiendo la convención
 | 3 | $z_{i-1}=z_2 \Rightarrow z_i=z_3$, con $x_3$ fijo (ángulo $\pi$ entre ejes) | Distancia respecto a $x_3$: $l_2$ |
 | 4 | $z_{i-1}=z_3 \Rightarrow z_i=z_4$, con $x_4$ fijo | Distancia respecto a $x_4$: $0$ |
 
+</div>
+
 ### 2.2 Tabla de parámetros DH
+
+<div align="center">
 
 | $i$ | $\theta_i$ | $d_i$ | $\alpha_i$ | $a_i$ |
 |---|---|---|---|---|
@@ -170,6 +188,8 @@ Para cada eslabón se definieron los ejes $z_i$ y $x_i$ siguiendo la convención
 | 2 | $\theta_1$ | $h_2$ | $0$ | $l_1$ |
 | 3 | $\theta_2$ | $h_3$ | $\pi$ | $l_2$ |
 | 4 | $0$ | $h_4+d_3$ | $0$ | $0$ |
+
+</div>
 
 Variables articulares del robot:
 
