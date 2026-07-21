@@ -204,4 +204,4 @@ Dado un punto objetivo $(p_x,p_y,p_z)$, el orden de cálculo es:
 
 Un punto objetivo alcanzable por el robot tiene, en general, **dos soluciones válidas** (codo arriba / codo abajo) debido al signo $\pm$ en $\theta_2$, y **una única solución** para $d_3$, ya que la articulación prismática no tiene ambigüedad de configuración.
 
-Como prueba de consistencia del modelo, si se toman los valores de $\theta_1$, $\theta_2$ y $d_3$ obtenidos aquí y se sustituyen en la matriz $T_4^0$ de la [cinemática directa](../3.%20Cinematica_Directa/README.md), se debe recuperar exactamente el punto objetivo $(p_x,p_y,p_z)$ del que se partió — cerrando así el ciclo directa ⇄ inversa.
+Como prueba de consistencia del modelo, si se toman los valores de $\theta_1$, $\theta_2$ y $d_3$ obtenidos aquí y se sustituyen en la matriz $T_4^0$ de la [cinemática directa](../3.Cinematica_Directa/README.md), se debe recuperar exactamente el punto objetivo $(p_x,p_y,p_z)$ del que se partió — cerrando así el ciclo directa ⇄ inversa.
