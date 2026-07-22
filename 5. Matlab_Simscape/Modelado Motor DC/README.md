@@ -27,30 +27,62 @@ El motor se modela de forma **simplificada, con flujo $\phi$ constante** en el e
 
 ### 1.1 Constantes del motor
 
+<p align="center">
+  <img src="images_motorDC/md_01_definicion_Ka_Km.png" alt="Definición de las constantes Ka y Km" width="750">
+</p>
+
 **$K_a$** — relación entre el voltaje inducido en la armadura y la velocidad angular del eje del motor:
 
-$$e_a(t) = K_a \cdot \omega(t) \qquad\Rightarrow\qquad E_a(s) = K_a\, W(s) \tag{1}$$
+$$e_a(t) = K_a \cdot \omega(t)$$
+
+Aplicando la transformada de Laplace:
+
+**(1)**
+$$E_a(s) = K_a\, W(s)$$
 
 **$K_m$** — relación entre el torque mecánico generado y la corriente que circula por la armadura:
 
-$$\tau = K_m\, i(t) \qquad\Rightarrow\qquad I(s) = \frac{T(s)}{K_m} \tag{2}$$
+$$\tau = K_m\, i(t)$$
+
+Aplicando la transformada de Laplace:
+
+**(2)**
+$$I(s) = \frac{T(s)}{K_m}$$
 
 ### 1.2 Análisis de malla eléctrica y de inercia mecánica
 
+<p align="center">
+  <img src="images_motorDC/md_02_despeje_ecuaciones.png" alt="Análisis de malla eléctrica, inercia mecánica y despeje de ecuaciones" width="800">
+</p>
 
 **Malla eléctrica** (ley de voltajes de Kirchhoff en el circuito de armadura):
 
-$$V(t) = R\,i(t) + L\,\frac{di}{dt} + e_a(t) \qquad\Rightarrow\qquad L\,s\,I(s) = V(s) - R\,I(s) - E_a(s) \tag{3}$$
+$$V(t) = R\,i(t) + L\,\frac{di}{dt} + e_a(t)$$
+
+Aplicando la transformada de Laplace y despejando:
+
+**(3)**
+$$L\,s\,I(s) = V(s) - R\,I(s) - E_a(s)$$
 
 **Inercia mecánica** (segunda ley de Newton para rotación, con fricción viscosa $\beta$):
 
-$$J\ddot\theta = \tau - \beta\dot\theta \qquad\Rightarrow\qquad J s\, W(s) = T(s) - \beta\, W(s) \qquad\Rightarrow\qquad W(s) = \frac{T(s)}{Js+\beta} \tag{4}$$
+$$J\ddot\theta = \tau - \beta\dot\theta$$
+
+Aplicando la transformada de Laplace:
+
+$$J s\, W(s) = T(s) - \beta\, W(s)$$
+
+Despejando $W(s)$:
+
+**(4)**
+$$W(s) = \frac{T(s)}{Js+\beta}$$
 
 ### 1.3 Despeje de ecuaciones
 
 Sustituyendo (1) y (2) en (3):
 
-$$(Ls+R)\left(\frac{T(s)}{K_m}\right) + K_a\, W(s) = V(s) \tag{5}$$
+**(5)**
+$$(Ls+R)\left(\frac{T(s)}{K_m}\right) + K_a\, W(s) = V(s)$$
 
 Sustituyendo (4) en (5):
 
@@ -60,6 +92,9 @@ $$\left(\frac{(Ls+R)(Js+\beta)+K_m K_a}{K_m(Js+\beta)}\right)T(s) = V(s)$$
 
 ### 1.4 Funciones de transferencia resultantes
 
+<p align="center">
+  <img src="images_motorDC/md_03_funciones_transferencia.png" alt="Funciones de transferencia finales del motor DC" width="900">
+</p>
 
 De la ecuación anterior se extraen las cuatro funciones de transferencia del sistema, todas con el mismo denominador característico:
 
