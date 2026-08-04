@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<Created by="" on="06/14/26||22:19:50" using="Simscape Multibody Link Version 7.4" from="SolidWorks 33.0.0"/>
+<Created by="" on="07/09/26||21:17:41" using="Simscape Multibody Link Version 7.4" from="SolidWorks 33.0.0"/>
 <ModelUnits mass="kilogram" length="centimeter"/>
 <DataUnits mass="kilogram" length="meter"/>
-<RootAssembly name="EnsamblajeFinal" uid="EnsamblajeFinal" version="153">
+<RootAssembly name="EnsamblajeFinal" uid="EnsamblajeFinal" version="348">
 <AssemblyFile name="EnsamblajeFinal.SLDASM" type="SolidWorks Assembly"/>
 <InstanceTree>
-<Instance name="Parte2-1" uid="Parte2-1" entityUid="Parte2*:*Predeterminado">
-<Transform>
-<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
-<Translation>0.010539999999999996 0 0.12569999999999998</Translation>
-</Transform>
-</Instance>
 <Instance name="Parte1-1" uid="Parte1-1" grounded="true" entityUid="Parte1*:*Predeterminado">
 <Transform>
 <Rotation>1 0 0 0 1 0 0 0 1</Rotation>
 <Translation>0 0 0</Translation>
 </Transform>
 </Instance>
-<Instance name="CremalleraDesde0-1" uid="CremalleraDesde0-1" entityUid="CremalleraDesde0*:*Predeterminado">
+<Instance name="Parte2-1" uid="Parte2-1" entityUid="Parte2*:*Predeterminado">
 <Transform>
 <Rotation>1 0 0 0 1 0 0 0 1</Rotation>
-<Translation>0.32797779520868686 -1.5200587151002004e-05 0.13850000000000051</Translation>
+<Translation>0.010539999999999996 0 0.12569999999999998</Translation>
+</Transform>
+</Instance>
+<Instance name="CremalleraDesde0-1" uid="CremalleraDesde0-1" entityUid="CremalleraDesde0*:*Predeterminado">
+<Transform>
+<Rotation>1 0 0 0 -0.99999999999999989 7.3500233677137317e-15 0 -7.3500233677137317e-15 -0.99999999999999989</Rotation>
+<Translation>0.32797779520868681 -1.5200587180446648e-05 0.13849999999999951</Translation>
 </Transform>
 </Instance>
 <Instance name="Parte3-1" uid="Parte3-1" entityUid="Parte3*:*Predeterminado">
 <Transform>
 <Rotation>1 0 0 0 1 0 0 0 1</Rotation>
-<Translation>0.16607779520868673 -1.5200587151015243e-05 0.13440000000000044</Translation>
+<Translation>0.16607779520868673 -1.5200587135678048e-05 0.13440000000000035</Translation>
 </Transform>
 </Instance>
 </InstanceTree>
@@ -108,8 +108,8 @@
 <InstancePath>
 <Uid>CremalleraDesde0-1</Uid>
 </InstancePath>
-<Position>0 0 0.053999999999999992</Position>
-<Axis>0 0 1</Axis>
+<Position>0 1.7056731257980053e-14 -0.053999999999999992</Position>
+<Axis>0 3.1586538939976094e-13 -0.99999999999999989</Axis>
 </ConstraintGeometry>
 </Concentric>
 <Parallel name="Paralelo1">
@@ -124,8 +124,8 @@
 <InstancePath>
 <Uid>CremalleraDesde0-1</Uid>
 </InstancePath>
-<Position>0.011070000000000024 0.011500000000000005 -0.054000000000000006</Position>
-<Axis>1 1.5084551965015709e-16 0</Axis>
+<Position>0.011070000000000024 -0.011500000000017057 0.053999999999996343</Position>
+<Axis>1 -1.5084551965015702e-16 0</Axis>
 </ConstraintGeometry>
 </Parallel>
 </Constraints>
@@ -133,13 +133,13 @@
 <Assemblies>
 </Assemblies>
 <Parts>
-<Part name="CremalleraDesde0" uid="CremalleraDesde0*:*Predeterminado" version="148">
+<Part name="CremalleraDesde0" uid="CremalleraDesde0*:*Predeterminado" version="150">
 <ModelUnits mass="kilogram" length="centimeter"/>
 <PartFile name="CremalleraDesde0.SLDPRT" type="SolidWorks Part"/>
 <MassProperties>
-<Mass>0.059830751926282948</Mass>
-<CenterOfMass>-0.0010073132914310489 1.8435541749427118e-10 0.00032759739917894213</CenterOfMass>
-<Inertia>6.3112031331643458e-05 6.2704405175176045e-05 8.1589932200799003e-06 4.5930394908779196e-14 -1.4852892644228219e-07 -9.2971862129906016e-14</Inertia>
+<Mass>0.059830751926282927</Mass>
+<CenterOfMass>-0.0010073132914310504 -1.8435531551014507e-10 -0.00032759739917892624</CenterOfMass>
+<Inertia>6.3112031331643363e-05 6.2704405175175964e-05 8.1589932200798952e-06 4.594762460468663e-14 1.4852892644228325e-07 9.2971814768580903e-14</Inertia>
 </MassProperties>
 <GeometryFile name="CremalleraDesde0_Predeterminado_sldprt.STEP" type="STEP"/>
 <VisualProperties>
