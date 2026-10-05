@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="EnsamblajeFinal.SLDASM">
+  <link
+    name="Parte1">
+    <inertial>
+      <origin
+        xyz="1.2145E-05 1.2327E-10 0.035788"
+        rpy="0 0 0" />
+      <mass
+        value="1.2446" />
+      <inertia
+        ixx="0.0022942"
+        ixy="-1.5109E-13"
+        ixz="-6.645E-09"
+        iyy="0.0023004"
+        iyz="-1.114E-12"
+        izz="0.0032198" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Parte2">
+    <inertial>
+      <origin
+        xyz="0.074781 -7.281E-06 -0.0014987"
+        rpy="0 0 0" />
+      <mass
+        value="0.24392" />
+      <inertia
+        ixx="0.00012344"
+        ixy="6.1822E-08"
+        ixz="2.5441E-05"
+        iyy="0.00075069"
+        iyz="-2.4985E-09"
+        izz="0.00085648" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="JointP2"
+    type="revolute">
+    <origin
+      xyz="0.01054 0 0.1257"
+      rpy="0 0 0" />
+    <parent
+      link="Parte1" />
+    <child
+      link="Parte2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="10"
+      velocity="1.0" />
+  </joint>
+  <link
+    name="Parte3">
+    <inertial>
+      <origin
+        xyz="0.068591 0.0022607 0.006097"
+        rpy="0 0 0" />
+      <mass
+        value="0.23017" />
+      <inertia
+        ixx="0.0001185"
+        ixy="-8.1222E-06"
+        ixz="-4.8088E-06"
+        iyy="0.00064983"
+        iyz="-2.6723E-06"
+        izz="0.00075548" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Parte3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="JointP3"
+    type="revolute">
+    <origin
+      xyz="0.15554 -1.5201E-05 0.0087"
+      rpy="0 0 0" />
+    <parent
+      link="Parte2" />
+    <child
+      link="Parte3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5708"
+      upper="1.5708"
+      effort="10"
+      velocity="1.0" />
+  </joint>
+  <link
+    name="Cremallera">
+    <inertial>
+      <origin
+        xyz="-0.0010073 1.8436E-10 0.0003276"
+        rpy="0 0 0" />
+      <mass
+        value="0.059831" />
+      <inertia
+        ixx="6.3112E-05"
+        ixy="-9.2972E-14"
+        ixz="-1.4853E-07"
+        iyy="6.2704E-05"
+        iyz="4.593E-14"
+        izz="8.159E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Cremallera.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.69412 0.098039 0.098039 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://EnsamblajeFinal.SLDASM/meshes/Cremallera.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="JointC"
+    type="prismatic">
+    <origin
+      xyz="0.1619 0 0.0041"
+      rpy="0 0 0" />
+    <parent
+      link="Parte3" />
+    <child
+      link="Cremallera" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.054"
+      upper="0"
+      effort="10"
+      velocity="0.1" />
+  </joint>
+</robot>
