@@ -207,19 +207,19 @@ $$\sin\theta_2 = +\sqrt{1-0.65606^2} = 0.75471$$
 
 Se usa `atan2` (no `acos`), porque conserva el signo y el cuadrante:
 
-$$\theta_2 = \operatorname{atan2}(\sin\theta_2,\ \cos\theta_2)$$
+$$\theta_2 = \mathrm{atan2}(\sin\theta_2,\ \cos\theta_2)$$
 
 ```matlab
 theta2 = atan2(sen_theta2, cos_theta2);
 ```
 
-$$\theta_2 = \operatorname{atan2}(0.75471,\ 0.65606) = \mathbf{49.0001^\circ}$$
+$$\theta_2 = \mathrm{atan2}(0.75471,\ 0.65606) = \mathbf{49.0001^\circ}$$
 
 ### Paso 6 — $\theta_1 = \alpha - \varphi$
 
 $\alpha$ es el ángulo de la recta $b$ respecto a $x$, y $\varphi$ es lo que $l_1$ "se queda corto" respecto a esa recta por culpa del codo:
 
-$$\alpha = \operatorname{atan2}(\rho_y,\ \rho_x) \qquad \varphi = \operatorname{atan2}\big(l_2\sin\theta_2,\ \ l_1 + l_2\cos\theta_2\big)$$
+$$\alpha = \mathrm{atan2}(\rho_y,\ \rho_x) \qquad \varphi = \mathrm{atan2}\big(l_2\sin\theta_2,\ \ l_1 + l_2\cos\theta_2\big)$$
 
 $$\theta_1 = \alpha - \varphi$$
 
@@ -229,9 +229,9 @@ phi    = atan2(l2*sen_theta2, l1 + l2*cos_theta2);
 theta1 = alpha - phi;
 ```
 
-$$\alpha = \operatorname{atan2}(25.5112,\ 13.5513) = 62.0232^\circ$$
+$$\alpha = \mathrm{atan2}(25.5112,\ 13.5513) = 62.0232^\circ$$
 
-$$\varphi = \operatorname{atan2}(12.2185,\ 26.1755) = 25.0232^\circ$$
+$$\varphi = \mathrm{atan2}(12.2185,\ 26.1755) = 25.0232^\circ$$
 
 $$\theta_1 = 62.0232^\circ - 25.0232^\circ = \mathbf{37.0000^\circ}$$
 
@@ -377,9 +377,9 @@ Si el $d_3$ calculado queda fuera de $[0,\,10]$ cm, el punto es alcanzable en el
 | $b$ | $\sqrt{\rho_x^2+\rho_y^2}$ | `b = sqrt(Px^2 + Py^2);` |
 | $\cos\theta_2$ | $\dfrac{b^2-l_1^2-l_2^2}{2l_1l_2}$ | `cos_theta2 = (b^2-l1^2-l2^2)/(2*l1*l2);` |
 | $\sin\theta_2$ | $\pm\sqrt{1-\cos^2\theta_2}$ | `sen_theta2 = sqrt(1-cos_theta2^2);` |
-| $\theta_2$ | $\operatorname{atan2}(\sin\theta_2,\cos\theta_2)$ | `theta2 = atan2(sen_theta2, cos_theta2);` |
-| $\alpha$ | $\operatorname{atan2}(\rho_y,\rho_x)$ | `alpha = atan2(Py, Px);` |
-| $\varphi$ | $\operatorname{atan2}(l_2\sin\theta_2,\ l_1+l_2\cos\theta_2)$ | `phi = atan2(l2*sen_theta2, l1+l2*cos_theta2);` |
+| $\theta_2$ | $\mathrm{atan2}(\sin\theta_2,\cos\theta_2)$ | `theta2 = atan2(sen_theta2, cos_theta2);` |
+| $\alpha$ | $\mathrm{atan2}(\rho_y,\rho_x)$ | `alpha = atan2(Py, Px);` |
+| $\varphi$ | $\mathrm{atan2}(l_2\sin\theta_2,\ l_1+l_2\cos\theta_2)$ | `phi = atan2(l2*sen_theta2, l1+l2*cos_theta2);` |
 | $\theta_1$ | $\alpha-\varphi$ | `theta1 = alpha - phi;` |
 | $d_3$ | $h_1+h_2+h_3-h_4-p_z$ | `d3 = h1+h2+h3-h4-Pz;` |
 
