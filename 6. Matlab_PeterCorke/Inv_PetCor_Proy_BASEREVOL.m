@@ -48,7 +48,7 @@ R(1).qlim = [0, 0];
 R(2) = Link('revolute',  'd', h2, 'alpha', 0,    'a', l1, 'offset', 0);
 R(3) = Link('revolute',  'd', h3, 'alpha', -pi,  'a', l2, 'offset', 0);
 R(4) = Link('prismatic', 'theta', 0, 'alpha', 0, 'a', 0,  'offset', h4);
-R(4).qlim = [0, 10];
+R(4).qlim = [0, 5.4];
 
 Robot = SerialLink(R, 'name', 'SCARA');
 Robot.plot([0,q2,q3,q4], 'scale', 1.2, 'workspace', [-40 40 -40 40 -25 25]);

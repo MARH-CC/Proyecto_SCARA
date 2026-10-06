@@ -45,7 +45,7 @@ q3 = d3;
 R(1) = Link('revolute',  'd', h2, 'alpha',  0,  'a', l1, 'offset', 0);
 R(2) = Link('revolute',  'd', h3, 'alpha', -pi, 'a', l2, 'offset', 0);
 R(3) = Link('prismatic', 'theta', 0, 'alpha', 0, 'a', 0, 'offset', h4);
-R(3).qlim = [0, 10];
+R(3).qlim = [0, 5.4];
 
 Robot = SerialLink(R, 'name', 'SCARA');
 Robot.base = transl(r1, 0, h1);  % absorbe T01: traslada r1 en X y h1 en Z

@@ -92,7 +92,7 @@ Detalles importantes:
 
 - **`'offset', h4` en la prismática:** en un `Link` prismático, `offset` se **suma a $d$**. Por eso el toolbox arma $d_4 = d_3 + h_4$, tal cual la tabla, y $d_3$ queda como la única variable.
 - **`'alpha', -pi` en lugar de `pi`:** $\cos(\pm\pi)=-1$ y $\sin(\pm\pi)\approx 0$, así que la matriz resultante es la misma (la diferencia es del orden de $10^{-16}$). Es el giro de 180° sobre $x$ que invierte el eje $z$ en el eslabón 3 y es el que hace que $p_z$ **baje** cuando $d_3$ aumenta.
-- **Límites:** `R(4).qlim = [0, 10]` limita la prismática a 0–10 cm (útil para `teach`).
+- **Límites:** `qlim = [0, 5.4]` limita la prismática a su carrera real, 0–5.4 cm (útil para `teach`, que no deja pasar el slider de ese rango). Es la misma carrera del URDF (`upper = 0.054` m).
 
 ---
 
@@ -257,9 +257,9 @@ d3 = h1 + h2 + h3 - h4 - Pz;
 
 $$d_3 = 12.57 + 0.87 + 0.41 - 5.40 - 8.45 = \mathbf{0.00 \text{ cm}}$$
 
-Rango de $p_z$ alcanzable con la prismática limitada a $[0,\,10]$ cm:
+Rango de $p_z$ alcanzable con la carrera de la prismática, $d_3\in[0,\,5.4]$ cm:
 
-$$p_z = 8.45 - d_3 \ \Rightarrow\ p_z\in[-1.55,\ 8.45]\ \text{cm}$$
+$$p_z = 8.45 - d_3 \ \Rightarrow\ p_z\in[3.05,\ 8.45]\ \text{cm}$$
 
 Ambos puntos de prueba están en $p_z=8.45$, que es la posición más alta del efector ($d_3=0$).
 
@@ -375,7 +375,7 @@ end
 
 ### 7.3 Límite de la prismática
 
-Si el $d_3$ calculado queda fuera de $[0,\,10]$ cm, el punto es alcanzable en el plano pero no en altura. `teach` no deja llevar el slider fuera de `qlim`.
+Si el $d_3$ calculado queda fuera de $[0,\,5.4]$ cm, el punto es alcanzable en el plano pero no en altura. `teach` no deja llevar el slider fuera de `qlim`.
 
 ---
 
