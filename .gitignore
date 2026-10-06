@@ -1,0 +1,8 @@
+# Archivos generados por MATLAB/Simulink (se regeneran al abrir los modelos)
+slprj/
+*.slxc
+*.autosave
+*.asv
+*.mexw64
+*.slx.r*
+*.slx.original
