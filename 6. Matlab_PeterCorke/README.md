@@ -44,9 +44,9 @@ Los dos scripts dan **el mismo robot y el mismo resultado**; solo cambia cómo s
 |---|---|---|---|
 | $l_1$ | `l1` | 15.554 cm | Eslabón 1 (hombro → codo) |
 | $l_2$ | `l2` | 16.190 cm | Eslabón 2 (codo → muñeca) |
-| $h_1$ | `h1` | 12.57 cm | Altura de la base a $\{1\}$ |
-| $h_2$ | `h2` | 0.87 cm | Altura entre $\{1\}$ y $\{2\}$ |
-| $h_3$ | `h3` | 0.41 cm | Altura entre $\{2\}$ y $\{3\}$ |
+| $h_1$ | `h1` | 12.57 cm | Altura de la base a $\lbrace 1\rbrace$ |
+| $h_2$ | `h2` | 0.87 cm | Altura entre $\lbrace 1\rbrace$ y $\lbrace 2\rbrace$ |
+| $h_3$ | `h3` | 0.41 cm | Altura entre $\lbrace 2\rbrace$ y $\lbrace 3\rbrace$ |
 | $h_4$ | `h4` | 5.40 cm | Parte fija de la altura de la prismática |
 | $r_1$ | `r1` | 1.054 cm | Offset en $x$ entre la base y el eje de $\theta_1$ |
 
@@ -150,7 +150,7 @@ $$p_x = 14.6053,\quad p_y = 25.5112,\quad p_z = 8.450 \ \text{cm}$$
 
 ### Paso 1 — Descontar el offset de la base ($r_1$)
 
-El eje de $\theta_1$ está desplazado $r_1$ en $x$ respecto al origen $\{0\}$. Para trabajar desde el hombro se resta:
+El eje de $\theta_1$ está desplazado $r_1$ en $x$ respecto al origen $\lbrace 0\rbrace$. Para trabajar desde el hombro se resta:
 
 $$\rho_x = p_x - r_1 \qquad \rho_y = p_y$$
 

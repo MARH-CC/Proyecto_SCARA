@@ -211,9 +211,9 @@ Los desplazamientos de `origin` son exactamente los parámetros de la cinemátic
 Dos detalles importantes:
 
 1. **El giro de $-\pi$ en `JointCremallera`** (`rpy="-3.1416 0 0"`) es el equivalente URDF del $\alpha_3=\pi$ de la tabla DH: invierte el eje $z$ de la cremallera para que apunte hacia abajo. Por eso un valor **positivo** del joint prismático **baja** el efector, igual que $d_3$ positivo en la DH ($p_z = h_1+h_2+h_3-h_4-d_3$). Resultado: **la variable del joint es directamente $d_3$**.
-2. **El origen del link `Cremallera` no es la punta.** Coincide con el sistema $\{3\}$ de la DH desplazado $d_3$. La punta (efector, sistema $\{4\}$) está $h_4=5.40$ cm más abajo **sobre el eje $z$ de ese link**:
+2. **El origen del link `Cremallera` no es la punta.** Coincide con el sistema $\lbrace 3\rbrace$ de la DH desplazado $d_3$. La punta (efector, sistema $\lbrace 4\rbrace$) está $h_4=5.40$ cm más abajo **sobre el eje $z$ de ese link**:
 
-   $$p_{\text{efector}} = p_{\text{origen del link}} + R_{\text{link}} \cdot \begin{bmatrix}0\\0\\h_4\end{bmatrix}$$
+$$p_{\text{efector}} = p_{\text{origen del link}} + R_{\text{link}} \cdot \begin{bmatrix}0\\0\\h_4\end{bmatrix}$$
 
 ### 5.3 Vector de joints
 
