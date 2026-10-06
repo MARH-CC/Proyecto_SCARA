@@ -195,6 +195,60 @@ end
 - `calcIK` aplica **ley de cosenos** para obtener `θ2` a partir de la distancia `b` al punto objetivo, y luego obtiene `θ1` como la diferencia entre el ángulo del vector al efector (`alpha`) y el ángulo interno del triángulo (`phi`).
 - El `s = max(0, min(1, t/t_max))` satura la interpolación para evitar extrapolar fuera del intervalo `[0, t_max]`.
 
+## 10. Comparación cuantitativa: analítico vs Simscape
+
+Para cerrar el ciclo se compararon los resultados de las carpetas [`3.Cinematica_Directa`](../3.Cinematica_Directa) y [`4.Cinematica_Inversa`](../4.Cinematica_Inversa) con lo que entrega Simscape. Se simularon los dos modelos (5 s) y se tomó la **posición del efector** del bloque `Transform Sensor8` (la misma señal que muestran los `Display` del modelo, pasada de m a cm). Los valores analíticos son los de la matriz $T_4^0$ y los de las ecuaciones de la inversa, con las dimensiones de la sección 9.
+
+### 10.1 Cinemática directa (`SLXCinematicaDirecta.slx`)
+
+Entrada: $\theta_1=40^\circ$, $\theta_2=57^\circ$, $d_3=3.5$ cm.
+
+<div align="center">
+
+| Posición del efector [cm] | $p_x$ | $p_y$ | $p_z$ |
+|---|:-:|:-:|:-:|
+| Analítico ($T_4^0$) | 10.9960 | 26.0672 | 4.9500 |
+| Simscape | 11.0105 | 26.0640 | 4.9514 |
+| Error | 0.0145 | −0.0033 | 0.0014 |
+
+</div>
+
+Norma del error: **0.0149 cm** (0.15 mm). En la posición inicial (todas las articulaciones en 0) Simscape da $(32.7978,\ -0.0015,\ 8.4500)$ contra el $(32.7980,\ 0,\ 8.4500)$ analítico.
+
+### 10.2 Cinemática inversa (`SLXCinematicaInversa.slx`)
+
+Puntos del modelo: inicio $(32.798,\ 0.0001,\ 8.45)$ y destino $(10.9960,\ 26.0672,\ 4.95)$ cm.
+
+<div align="center">
+
+| | $\theta_1$ | $\theta_2$ | $d_3$ [cm] |
+|---|:-:|:-:|:-:|
+| Inversa analítica, inicio | 0.0002° | 0.0000° | 0.0000 |
+| Inversa analítica, destino | 39.9998° | 57.0003° | 3.5000 |
+| Simscape, final ($t=5$ s) | 39.9838° | 56.9775° | 3.4986 |
+
+</div>
+
+El destino de la inversa es, a propósito, **el mismo punto de la cinemática directa** ($40^\circ,\ 57^\circ,\ 3.5$ cm): al evaluar la directa con los ángulos de la inversa se recupera $(10.9960,\ 26.0672,\ 4.9500)$, y los dos modelos de Simscape terminan en la misma pose.
+
+<div align="center">
+
+| Posición del efector [cm] | $p_x$ | $p_y$ | $p_z$ | $\lVert e\rVert$ |
+|---|:-:|:-:|:-:|:-:|
+| Objetivo, final | 10.9960 | 26.0672 | 4.9500 | |
+| Simscape, final | 11.0105 | 26.0639 | 4.9514 | 0.0149 |
+| Simscape, $t=2.5$ s | 26.3904 | 17.4529 | 6.6989 | |
+| Directa con las articulaciones interpoladas en $t=2.5$ s | 26.3978 | 17.4454 | 6.7000 | 0.0106 |
+
+</div>
+
+La interpolación del modelo es **lineal en las articulaciones**, no en el espacio cartesiano; por eso el punto intermedio se compara contra la cinemática directa de los ángulos interpolados, y no contra el punto medio de la recta entre los dos puntos.
+
+### 10.3 Conclusión
+
+- El error máximo del efector es de **0.015 cm (0.15 mm)**, cerca del 0.05 % de la longitud total $l_1+l_2$: la cinemática analítica y el modelo multicuerpo importado del CAD **coinciden**.
+- Al final de los 5 s las articulaciones de Simscape quedan unas centésimas por debajo de la consigna (0.016° en $\theta_1$, 0.023° en $\theta_2$, 0.0014 cm en $d_3$), lo que equivale a un retraso de apenas ≈ 2 ms respecto a la rampa. Es el orden de magnitud del filtrado de entrada de los conversores Simulink-PS, y no una diferencia del modelo geométrico.
+
 ## Estado de esta sección
 
 - [x] Instalación y verificación de requisitos (Simscape Multibody en Matlab / Simscape Multibody Link en SolidWorks)
@@ -203,4 +257,4 @@ end
 - [x] Construcción y organización del modelo en Simulink (RIGID, transformadas, sensores, motion inputs)
 - [x] Simulación de cinemática directa (`SLXCinematicaDirecta.slx`)
 - [x] Simulación de cinemática inversa (`SLXCinematicaInversa.slx`)
-- [ ] Documentar comparación cuantitativa entre resultados analíticos (carpetas 3 y 4) y resultados de Simscape
+- [x] Comparación cuantitativa entre resultados analíticos (carpetas 3 y 4) y resultados de Simscape
