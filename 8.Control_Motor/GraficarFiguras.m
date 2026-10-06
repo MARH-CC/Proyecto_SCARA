@@ -8,7 +8,8 @@ base = fileparts(mfilename('fullpath'));
 dirComp  = fullfile(base, 'images');
 dirPolos = fullfile(base, 'Asignacion_Polos', 'images');
 dirRele  = fullfile(base, 'Metodo_Rele', 'images');
-for d = {dirComp, dirPolos, dirRele}, if ~exist(d{1},'dir'), mkdir(d{1}); end, end
+dirLit   = fullfile(base, 'SintonizacionLiteratura', 'images');
+for d = {dirComp, dirPolos, dirRele, dirLit}, if ~exist(d{1},'dir'), mkdir(d{1}); end, end
 set(0,'DefaultFigureVisible','off');
 
 %% Planta: motor DC + reductor 275.69:1 (theta salida / V)  -- linealizacion del modelo Simscape
@@ -122,4 +123,90 @@ f = figure('Position',[100 100 900 380]);
 subplot(1,2,1); plot(epsXl, Ku, 'o-', 'LineWidth',1.4); grid on; xlabel('\epsilon'); ylabel('K_u'); title('Ganancia última K_u')
 subplot(1,2,2); plot(epsXl, PuXl, 's-', 'LineWidth',1.4, 'Color', col(2,:)); grid on; xlabel('\epsilon'); ylabel('P_u [s]'); title('Periodo último P_u')
 exportgraphics(f, fullfile(dirRele,'rele_Ku_Pu_vs_eps.png'), 'Resolution', 150);
+%% Caracterización: ensayos al escalón (1, 2.5 y 5 V) y construcción de K_m y tau_m
+V  = [1 2.5 5];
+T1 = 1;  T2 = 1.0464;  T3 = [1.5017 1.2378 1.2001];
+O2 = [0.2766 0.2924 0.4711];
+Km = O2 ./ (V .* (T3 - T2));                 % K_m = (O2-O1)/((I2-I1)(T3-T2)), con O1 = I1 = 0
+f = figure('Position',[100 100 1250 400]);
+for k = 1:3
+    tt = (0.9:0.0005:T3(k)+0.15)';
+    y  = lsim(G, V(k)*(tt >= T1), tt);
+    subplot(1,3,k); hold on
+    plot(tt, y, 'LineWidth', 1.8, 'Color', col(1,:))
+    tr = [T2 T3(k)+0.15];
+    plot(tr, Km(k)*V(k)*(tr-T2), 'k--', 'LineWidth', 1.1)
+    yl = [0 1.25*O2(k)];
+    for tm_ = [T1 T2 T3(k)], plot([tm_ tm_], yl, ':', 'Color', [0.4 0.4 0.4]); end
+    plot(T3(k), O2(k), 'ro', 'MarkerFaceColor', 'r')
+    text(T1, yl(2)*0.97, 'T_1', 'HorizontalAlignment','right', 'FontSize', 11)
+    text(T2, yl(2)*0.97, ' T_2', 'HorizontalAlignment','left', 'FontSize', 11)
+    text(T3(k), yl(2)*0.97, 'T_3 ', 'HorizontalAlignment','right', 'FontSize', 11)
+    text(T3(k)+0.01, O2(k)*0.82, sprintf('O_2 = %.4f', O2(k)), 'Color', 'r', 'FontSize', 10)
+    ylim(yl); xlim([0.9 T3(k)+0.15]); grid on
+    xlabel('Tiempo [s]'); if k == 1, ylabel('\theta [rad]'); end
+    title({sprintf('Escalón de %g V', V(k)), ['K_m = ' num2str(Km(k),'%.4f') ',  \tau_m = ' num2str(T2-T1,'%.4f') ' s']})
+end
+exportgraphics(f, fullfile(dirLit,'caracterizacion_ensayos.png'), 'Resolution', 150);
+fprintf('Km (calculado con las lecturas): %s\n', mat2str(round(Km,4)));
+
+%% Asignación de polos: diagrama del lazo y mapa de polos
+f = figure('Position',[100 100 1100 280]); axes('Position',[0 0 1 1]); axis([0 14.2 0 4]); axis off; hold on
+caja(2.6,1.2,4.0,1.6, '$C(s)=K_p+\frac{K_i}{s}+K_d\,s$');
+caja(8.0,1.2,4.6,1.6, '$G(s)=\frac{33792}{s^3+2500\,s^2+55822\,s}$');
+th_ = linspace(0,2*pi,60); plot(1.4+0.28*cos(th_), 2+0.28*sin(th_), 'k', 'LineWidth', 1.2)
+text(1.4, 2, '$\Sigma$', 'Interpreter','latex', 'HorizontalAlignment','center', 'FontSize', 13)
+text(1.05, 2.3, '$+$', 'Interpreter','latex', 'FontSize', 12); text(1.45, 1.55, '$-$', 'Interpreter','latex', 'FontSize', 12)
+flecha(0.3,2,1.12,2);   text(0.3, 2.3, '$R(s)$', 'Interpreter','latex', 'FontSize', 13)
+flecha(1.68,2,2.6,2);   text(2.0, 2.3, '$E(s)$', 'Interpreter','latex', 'FontSize', 12)
+flecha(6.6,2,8.0,2);    text(7.05, 2.3, '$U(s)$', 'Interpreter','latex', 'FontSize', 12)
+flecha(12.6,2,13.8,2);  text(13.2, 2.3, '$Y(s)$', 'Interpreter','latex', 'FontSize', 13)
+plot([13.2 13.2 1.4 1.4], [2 0.6 0.6 1.72], 'k', 'LineWidth', 1.2); flecha(1.4,0.9,1.4,1.72)
+plot(13.2, 2, 'k.', 'MarkerSize', 14)
+exportgraphics(f, fullfile(dirPolos,'lazo_cerrado.png'), 'Resolution', 150);
+
+zp = 0.96; wn = 4/(0.96*0.33);
+Kpd = 409438/33792; Kid = 91442/33792; Kdd = 4998/33792;
+pdes = roots(conv([1 24.271 159.77], conv([1 0.2312],[1 2475.5])));
+f = figure('Position',[100 100 1250 470]); subplot(1,2,1); hold on
+a = acos(zp);  rr = 30;
+fill([0 -rr*cos(a) -rr*cos(a) 0], [0 rr*sin(a) -rr*sin(a) 0], [0.9 0.95 1], 'EdgeColor','none')
+plot([0 -rr*cos(a)], [0 rr*sin(a)], '--', 'Color', [0.4 0.4 0.4]); plot([0 -rr*cos(a)], [0 -rr*sin(a)], '--', 'Color', [0.4 0.4 0.4])
+th_ = linspace(pi/2, 3*pi/2, 200); plot(wn*cos(th_), wn*sin(th_), ':', 'Color', [0.4 0.4 0.4])
+h1 = plot([0 -22.53], [0 0], 'kx', 'MarkerSize', 11, 'LineWidth', 2);
+h2 = plot(real(pdes(abs(pdes)<100)), imag(pdes(abs(pdes)<100)), 'rx', 'MarkerSize', 11, 'LineWidth', 2);
+zz = roots([Kdd Kpd Kid]);
+h3 = plot(zz(abs(zz)<30), 0*zz(abs(zz)<30), 'bo', 'MarkerSize', 9, 'LineWidth', 1.5);
+text(-12.14, 4.4, '$-12.14\pm3.54\,j$', 'Interpreter','latex', 'HorizontalAlignment','center', 'Color','r', 'FontSize', 12)
+text(-0.231, -1.0, '$-0.231$', 'Interpreter','latex', 'HorizontalAlignment','right', 'Color','r', 'FontSize', 12)
+text(-22.53, -1.0, '$-22.5$', 'Interpreter','latex', 'HorizontalAlignment','center', 'FontSize', 12)
+text(-0.224, 1.0, '$-0.224$', 'Interpreter','latex', 'HorizontalAlignment','right', 'Color','b', 'FontSize', 12)
+text(-19, 5.6, '$\zeta=0.96$', 'Interpreter','latex', 'FontSize', 12, 'Color',[0.3 0.3 0.3])
+xlim([-28 3]); ylim([-8 8]); grid on; xlabel('Re'); ylabel('Im')
+title('Plano s (zoom)')
+legend([h1 h2 h3], {'Polos de la planta', 'Polos de lazo cerrado', 'Cero del PID'}, 'Location','southwest')
+subplot(1,2,2); hold on
+plot([-0.6 0.15], [0 0], 'k-', 'Color', [0.7 0.7 0.7])
+plot(0, 0, 'kx', 'MarkerSize', 12, 'LineWidth', 2)
+plot(-0.2312, 0, 'rx', 'MarkerSize', 12, 'LineWidth', 2)
+plot(zz(abs(zz)<1), 0, 'bo', 'MarkerSize', 10, 'LineWidth', 1.5)
+text(0, 0.045, '$0$', 'Interpreter','latex', 'HorizontalAlignment','center', 'FontSize', 12)
+text(-0.2312, -0.045, '$-0.231$', 'Interpreter','latex', 'HorizontalAlignment','center', 'Color','r', 'FontSize', 12)
+text(-0.2239, 0.045, '$-0.224$', 'Interpreter','latex', 'HorizontalAlignment','center', 'Color','b', 'FontSize', 12)
+xlim([-0.6 0.15]); ylim([-0.15 0.15]); grid on; xlabel('Re'); ylabel('Im')
+title('Cerca del origen: el cero casi cancela el polo lento')
+sgtitle('Asignación de polos del PID: polos de la planta (0, -22.5 y -2477.5), polos deseados (-12.14 ± 3.54j, -0.231 y -2475.5) y ceros (-0.224 y -81.7)', 'FontSize', 10)
+exportgraphics(f, fullfile(dirPolos,'mapa_polos.png'), 'Resolution', 150);
+
 disp('Figuras generadas.')
+
+function caja(x, y, w, h, tx)
+    rectangle('Position',[x y w h], 'LineWidth', 1.3, 'FaceColor', [0.95 0.97 1])
+    text(x+w/2, y+h/2, tx, 'Interpreter','latex', 'HorizontalAlignment','center', 'FontSize', 13)
+end
+function flecha(x1, y1, x2, y2)
+    plot([x1 x2], [y1 y2], 'k', 'LineWidth', 1.2)
+    d = [x2-x1 y2-y1]; d = d/norm(d); n = [-d(2) d(1)]; L = 0.17; W = 0.075;
+    patch([x2, x2-L*d(1)+W*n(1), x2-L*d(1)-W*n(1)], [y2, y2-L*d(2)+W*n(2), y2-L*d(2)-W*n(2)], 'k')
+end
+

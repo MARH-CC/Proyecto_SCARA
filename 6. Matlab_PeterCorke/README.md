@@ -13,11 +13,15 @@ Esta carpeta lleva la **cinemática inversa** del robot SCARA (ya deducida a man
 
 ## 0. Contenido de la carpeta
 
+<div align="center">
+
 | Archivo | Qué hace |
 |---|---|
 | `Inv_PetCor_Proy_BASETRASL.m` | Modelo de **3 `Link`** (θ₁, θ₂, d₃). La fila 1 de la tabla DH (traslación $r_1$ en $x$ y $h_1$ en $z$) se absorbe en `Robot.base`. Punto de prueba **B**. |
 | `Inv_PetCor_Proy_BASEREVOL.m` | Modelo de **4 `Link`**: la fila 1 de la tabla DH se deja como un joint revoluto **bloqueado** (`qlim = [0 0]`). Punto de prueba **A**. |
 | `images/` | Capturas del robot en el toolbox y la figura de la geometría de la inversa usadas en este documento. |
+
+</div>
 
 Los dos scripts dan **el mismo robot y el mismo resultado**; solo cambia cómo se representa la primera fila de la tabla DH (sección 3).
 
@@ -73,12 +77,16 @@ La tabla DH del robot (sección 2.2 de la [cinemática directa](../3.Cinematica_
 
 En Peter Corke cada fila es un `Link`. La regla es: lo que es **constante** se pasa como parámetro, y lo que es **variable** lo pone `fkine/plot` a través de $q$.
 
+<div align="center">
+
 | Fila | Código | Qué pasa con la variable |
 |---|---|---|
 | 1 | `Link('revolute','d',h1,'alpha',0,'a',r1)` | $\theta$ fijo en 0 (no se mueve) |
 | 2 | `Link('revolute','d',h2,'alpha',0,'a',l1)` | $\theta = q = \theta_1$ |
 | 3 | `Link('revolute','d',h3,'alpha',-pi,'a',l2)` | $\theta = q = \theta_2$ |
 | 4 | `Link('prismatic','theta',0,'alpha',0,'a',0,'offset',h4)` | $d = q + \text{offset} = d_3 + h_4$ |
+
+</div>
 
 Detalles importantes:
 
@@ -257,10 +265,14 @@ Ambos puntos de prueba están en $p_z=8.45$, que es la posición más alta del e
 
 ### Paso 8 — Asignar a los joints del toolbox
 
+<div align="center">
+
 | Script | Asignación |
 |---|---|
 | `BASETRASL` | `q = [theta1, theta2, d3]` |
 | `BASEREVOL` | `q = [0, theta1, theta2, d3]` |
+
+</div>
 
 ### Salida en consola (punto B)
 

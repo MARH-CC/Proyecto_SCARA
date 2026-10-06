@@ -4,6 +4,8 @@ Esta carpeta reúne el trabajo de **sintonización del controlador de posición*
 
 Para lograrlo se compararon **cinco métodos de sintonización** sobre la misma planta:
 
+<div align="center">
+
 | # | Método | Subcarpeta |
 |---|---|---|
 | 1 | Reglas de **literatura** para el modelo IPD — Leonard (1994) | [`SintonizacionLiteratura`](./SintonizacionLiteratura/README.md) |
@@ -11,6 +13,8 @@ Para lograrlo se compararon **cinco métodos de sintonización** sobre la misma 
 | 3 | Reglas de **literatura** para el modelo IPD — Åström y Hägglund (2006) | [`SintonizacionLiteratura`](./SintonizacionLiteratura/README.md) |
 | 4 | **Asignación de polos** (diseño analítico PI y PID) | [`Asignacion_Polos`](./Asignacion_Polos/README.md) |
 | 5 | **Método del relé** (ciclo último) con reglas Ziegler–Nichols, Smith, Tan y Corripio | [`Metodo_Rele`](./Metodo_Rele/README.md) |
+
+</div>
 
 Cada subcarpeta tiene su propio README con el procedimiento completo; este documento es la **visión general y la comparación final**.
 
@@ -67,11 +71,15 @@ Esta función sale de la misma expresión de la carpeta de modelado del motor, $
 
 Sus polos son:
 
+<div align="center">
+
 | Polo | Valor | Origen |
 |---|---|---|
 | $s=0$ | $0$ | Integrador: velocidad → posición |
 | $s_1$ | $-22.5$ | Polo mecánico (el dominante) |
 | $s_2$ | $-2477.5$ | Polo eléctrico ($\approx R/L=2500$) |
+
+</div>
 
 Como la planta ya tiene un integrador, es de **tipo 1**: cualquier controlador estable la lleva a **error nulo ante un escalón** de referencia.
 
@@ -119,10 +127,12 @@ $$
 ## 3. Modelo de comparación
 
 <p align="center">
-  <img src="images/modelo_comparacion_metodos.png" alt="Modelo Simulink ComparacionMetodos" width="760">
+  <img src="images/modelo_comparacion_metodos.png" alt="Modelo Simulink ComparacionMetodos" width="620">
 </p>
 
 `ComparacionMetodos.slx` pone **los cinco lazos cerrados en paralelo**, todos con la misma planta $G(s)$ y la misma escalera de referencia:
+
+<div align="center">
 
 | Lazo | Controlador (bloque PID de Simulink) |
 |---|---|
@@ -132,6 +142,8 @@ $$
 | Asignación de polos (PID) | $K_p=12.11,\ K_i=2.4,\ K_d=0.147$ (valores del bloque; el cálculo analítico da $12.12,\ 2.706,\ 0.148$) |
 | Método del relé $\varepsilon=1$ (Z-N, **P**) | $K_p=10.817$ |
 
+</div>
+
 Todos los bloques usan filtro derivativo $N=100$. Los scopes y el `Mux` de la derecha agrupan las señales para compararlas.
 
 ---
@@ -139,6 +151,8 @@ Todos los bloques usan filtro derivativo $N=100$. Los scopes y el `Mux` de la de
 ## 4. Resultados
 
 Valores leídos de los osciloscopios y registrados en [`Analisis5Metodos.xlsx`](./Analisis5Metodos.xlsx) (hoja *Resumen*). Cada celda es **sobrepico / tiempo de asentamiento**:
+
+<div align="center">
 
 | Salto | t [s] | Δr [°] | Leonard (1994) | Cluett y Wang ($T_{CL}=6\tau_m$) | Åström y Hägglund (2006) | Asignación de polos | Relé $\varepsilon=1$ (P) |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -152,6 +166,8 @@ Valores leídos de los osciloscopios y registrados en [`Analisis5Metodos.xlsx`](
 | 8 | 68 | 60.0 | 12.1 % / 2.8 s | 18.7 % / 2.8 s | 19.0 % / 1.7 s | 2.8 % / 14 s | 0.04 % / 0.7 s |
 | 9 | 78 | 90.0 | 12.1 % / 2.8 s | 18.7 % / 2.8 s | 19.1 % / 1.7 s | 2.7 % / 14 s | 0.05 % / 0.7 s |
 | 10 | 88 | 130.0 | 12.1 % / 2.8 s | 18.7 % / 2.8 s | 19.0 % / 1.7 s | 2.8 % / 14 s | 0.05 % / 0.7 s |
+
+</div>
 
 Resumen (saltos 2 a 10; el salto 1 queda afectado por la resolución de lectura, al ser de solo 0.1°):
 
@@ -168,11 +184,11 @@ Resumen (saltos 2 a 10; el salto 1 queda afectado por la resolución de lectura,
 </div>
 
 <p align="center">
-  <img src="images/comparacion_escalera.png" alt="Respuesta de los cinco métodos a la escalera de referencia" width="780">
+  <img src="images/comparacion_escalera.png" alt="Respuesta de los cinco métodos a la escalera de referencia" width="680">
 </p>
 
 <p align="center">
-  <img src="images/comparacion_zoom_salto5.png" alt="Zoom al salto 5" width="620">
+  <img src="images/comparacion_zoom_salto5.png" alt="Zoom al salto 5" width="520">
 </p>
 
 > Las dos figuras se generaron con `GraficarFiguras.m`, que reconstruye los cinco lazos con los $K_p$, $K_i$, $K_d$ guardados en los bloques PID de los modelos. Los **sobrepicos simulados coinciden con los del Excel** (Leonard 12.1 %, Cluett y Wang 18.7 %, Åström y Hägglund 19.1 %, asignación de polos 2.5–2.8 %, relé 0.05 %).

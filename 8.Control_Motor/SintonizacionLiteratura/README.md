@@ -12,10 +12,14 @@ El proceso tiene tres pasos:
 
 ## 0. Contenido
 
+<div align="center">
+
 | Archivo | Descripción |
 |---|---|
 | `ControladoresLibro.slx` | Modelo Simulink: motor en Simscape para 1, 2.5 y 5 V, comparación contra el modelo IPD y los lazos con los mejores PI y PID |
-| `images/` | Manuscritos de la caracterización y capturas del modelo |
+| `images/` | Figuras de la caracterización y paneles del modelo |
+
+</div>
 
 ---
 
@@ -33,6 +37,8 @@ con $K_m$ la **ganancia de velocidad** (rad/s por voltio) y $\tau_m$ el **retard
 
 Se aplica un **escalón de voltaje** a la planta y se mide la respuesta de posición, que después de un pequeño transitorio es una **rampa**. Sobre la gráfica se leen los instantes y niveles:
 
+<div align="center">
+
 | Símbolo | Significado |
 |---|---|
 | $T_1$ | Instante en que se aplica el escalón |
@@ -40,6 +46,8 @@ Se aplica un **escalón de voltaje** a la planta y se mide la respuesta de posic
 | $T_3$ | Un instante cualquiera sobre la parte recta de la rampa |
 | $I_1,\ I_2$ | Entrada antes y después del escalón |
 | $O_1,\ O_2$ | Salida inicial y salida en $T_3$ |
+
+</div>
 
 $$
 K_m=\frac{O_2-O_1}{(I_2-I_1)\,(T_3-T_2)}\qquad\qquad \tau_m=T_2-T_1
@@ -49,23 +57,33 @@ La pendiente de la rampa dividida entre la amplitud del escalón es $K_m$, y el 
 
 ### 1.2 Ensayos realizados
 
-El ensayo se hizo con el modelo Simscape del motor para **tres amplitudes de escalón: 1 V, 2.5 V y 5 V** (si el modelo fuera perfectamente lineal el resultado sería el mismo en los tres).
+El ensayo se hizo con el modelo Simscape del motor para **tres amplitudes de escalón: 1 V, 2.5 V y 5 V** (si el modelo fuera perfectamente lineal el resultado sería el mismo en los tres; las pequeñas diferencias vienen de la lectura de los instantes en el osciloscopio).
+
+En cada ensayo el modelo pone en paralelo la salida del **motor en Simscape**, la **función de transferencia linealizada** $33792/(s^3+2500s^2+55822s)$ y el **modelo IPD** ($0.6075/s$ con un retardo de 0.0464 s):
+
+<div align="center">
+
+| 1 V | 2.5 V | 5 V |
+|:-:|:-:|:-:|
+| <img src="images/modelo_caracterizacion_1V.png" alt="Modelo de caracterización a 1 V" width="260"> | <img src="images/modelo_caracterizacion_2p5V.png" alt="Modelo de caracterización a 2.5 V" width="260"> | <img src="images/modelo_caracterizacion_5V.png" alt="Modelo de caracterización a 5 V" width="260"> |
+
+</div>
+
+La respuesta de posición de la planta a cada escalón, con los instantes leídos ($T_1=1$ s, $T_2=1.0464$ s y $T_3$ sobre la rampa), la recta de la rampa y el punto $(T_3,\ O_2)$:
 
 <p align="center">
-  <img src="images/modelo_caracterizacion_simscape.png" alt="Modelo Simscape del motor con entradas de 1, 2.5 y 5 V" width="330">
+  <img src="images/caracterizacion_ensayos.png" alt="Respuesta al escalón de 1, 2.5 y 5 V con la construcción de Km y tau_m" width="760">
 </p>
 
-En cada ensayo el modelo pone en paralelo la salida del **motor en Simscape** (`thetha_l`), la **función de transferencia linealizada** $33792/(s^3+2500s^2+55822s)$ y el **modelo IPD** ($0.6075/s$ con un retardo de 0.0464 s).
-
-**Lecturas** (manuscritos a continuación):
+**Lecturas y resultados:**
 
 <div align="center">
 
 | Ensayo | $T_1$ [s] | $T_2$ [s] | $T_3$ [s] | $I_2$ | $O_2$ | $K_m$ | $\tau_m$ [s] |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | 1 V | 1 | 1.0464 | 1.5017 | 1 | 0.2766 | **0.6075** | 0.0464 |
-| 2.5 V | 1 | 1.0464 | 1.2378 | 2.5 | 0.2924 | **0.610** | 0.0464 |
-| 5 V | 1 | 1.0464 | 1.2001 | 5 | 0.4711 | **0.613** | 0.0464 |
+| 2.5 V | 1 | 1.0464 | 1.2378 | 2.5 | 0.2924 | **0.6111** | 0.0464 |
+| 5 V | 1 | 1.0464 | 1.2001 | 5 | 0.4711 | **0.6130** | 0.0464 |
 
 </div>
 
@@ -75,31 +93,21 @@ $$
 K_m=\frac{0.2766-0}{(1-0)(1.5017-1.0464)}=0.6075\qquad \tau_m=1.0464-1=0.0464\ \text{s}
 $$
 
-Y por tanto $G_m(s)=0.6075\,e^{-0.0464\,s}/s$. Los modelos de los tres ensayos:
+Los modelos IPD que resultan de cada ensayo son:
 
 <div align="center">
 
 | Ensayo | Modelo IPD |
 |:-:|:-:|
 | 1 V | $G_m(s)=\dfrac{0.6075\,e^{-0.0464\,s}}{s}$ |
-| 2.5 V | $G_m(s)=\dfrac{0.6100\,e^{-0.0464\,s}}{s}$ |
+| 2.5 V | $G_m(s)=\dfrac{0.6111\,e^{-0.0464\,s}}{s}$ |
 | 5 V | $G_m(s)=\dfrac{0.6130\,e^{-0.0464\,s}}{s}$ |
 
 </div>
 
-<div align="center">
-
-| 1 V y 2.5 V | 2.5 V y 5 V |
-|:-:|:-:|
-| <img src="images/caracterizacion_1V_2p5V.png" alt="Caracterización a 1 V y 2.5 V" width="420"> | <img src="images/caracterizacion_2p5V_5V.png" alt="Caracterización a 2.5 V y 5 V" width="420"> |
-
-</div>
-
-> En el manuscrito del ensayo de 2.5 V aparece $\tau_m=0.0469$ s; con los mismos instantes ($1.0464-1$) da 0.0464 s, que es el valor usado en los modelos y en los otros dos ensayos.
-
 ### 1.3 Parámetros adoptados
 
-Los tres valores de $K_m$ son muy parecidos (variación de 1 %), así que se adoptó:
+Los tres valores de $K_m$ son muy parecidos (variación menor al 1 %); su promedio es 0.6105, así que se adoptó:
 
 $$
 \boxed{K_m=0.610\ \tfrac{\text{rad/s}}{\text{V}}\qquad\tau_m=0.0464\ \text{s}\qquad K_m\tau_m=0.028304}
@@ -172,18 +180,24 @@ Estos valores se **verificaron contra los bloques PID** de `ControladoresLibro.s
 
 ## 3. Modelo Simulink
 
-`ControladoresLibro.slx` reúne en una sola hoja las tablas del Handbook (con flechas que marcan las reglas candidatas), los ensayos de caracterización y los lazos de prueba. La parte de controladores:
+`ControladoresLibro.slx` reúne en una sola hoja las tablas del Handbook (con flechas que marcan las reglas candidatas), los ensayos de caracterización y los lazos de prueba. Los lazos de prueba están organizados en **tres grupos de colores**, uno por cada amplitud del escalón de entrada (**1 V** gris, **2.5 V** verde, **5 V** rojo), y cada grupo tiene dos columnas:
 
-<p align="center">
-  <img src="images/modelo_mejores_controladores.png" alt="Lazos con los 3 mejores PI y los 3 mejores PID para 1, 2.5 y 5 V" width="760">
-</p>
+- ***3 Best PI*:** los tres PI de Cluett y Wang con $T_{CL}=6\tau_m$, $5\tau_m$ y $4\tau_m$.
+- ***3 Best PID*:** Leonard (1994), Cluett y Wang ($6\tau_m$) y Åström y Hägglund (2006).
 
-- **Tres bloques de colores**: uno por cada amplitud de escalón de entrada (**1** gris, **2.5** verde, **5** rojo).
-- **Columna *3 Best PI*:** los tres PI de Cluett y Wang con $T_{CL}=6\tau_m$, $5\tau_m$ y $4\tau_m$.
-- **Columna *3 Best PID*:** Leonard (1994), Cluett y Wang ($6\tau_m$) y Åström y Hägglund (2006).
-- En cada subsistema la respuesta del lazo cerrado con el controlador se compara con la de la planta original (*Original Function*) en el mismo scope, para cada amplitud de entrada.
+En cada subsistema se compara la respuesta de la planta original (*Original Function*) con la del lazo cerrado con el controlador, en el mismo scope. Todos los bloques usan filtro derivativo $N=100$ y la planta $G(s)=33792/(s^3+2500s^2+55822s)$.
 
-Todos los bloques PID usan filtro derivativo $N=100$ y la planta $G(s)=33792/(s^3+2500s^2+55822s)$.
+<div align="center">
+
+| | **3 Best PI** | **3 Best PID** |
+|:-:|:-:|:-:|
+| **1 V** | <img src="images/mejores_PI_1V.png" alt="3 mejores PI, 1 V" width="380"> | <img src="images/mejores_PID_1V.png" alt="3 mejores PID, 1 V" width="380"> |
+| **2.5 V** | <img src="images/mejores_PI_2p5V.png" alt="3 mejores PI, 2.5 V" width="380"> | <img src="images/mejores_PID_2p5V.png" alt="3 mejores PID, 2.5 V" width="380"> |
+| **5 V** | <img src="images/mejores_PI_5V.png" alt="3 mejores PI, 5 V" width="380"> | <img src="images/mejores_PID_5V.png" alt="3 mejores PID, 5 V" width="380"> |
+
+</div>
+
+> **Ojo con el modelo:** los tres PID (Leonard, Cluett y Wang y Åström y Hägglund) están cargados con sus ganancias solo en el grupo de **1 V**. En los grupos de 2.5 V y 5 V los bloques de la columna *3 Best PID* quedaron como controladores de tipo **PI** con las ganancias de Cluett y Wang (se ve en la etiqueta `PI(s)` de los bloques), copiados de la columna de PI.
 
 ---
 
@@ -202,7 +216,7 @@ Los tres PID se llevaron a la comparación final con los otros métodos (`Compar
 </div>
 
 <p align="center">
-  <img src="../images/comparacion_zoom_salto5.png" alt="Comparación de los métodos en el salto de 20 grados" width="620">
+  <img src="../images/comparacion_zoom_salto5.png" alt="Comparación de los métodos en el salto de 20 grados" width="560">
 </p>
 
 **Lectura:**
@@ -220,4 +234,5 @@ Los tres PI de Cluett y Wang están en el modelo para probarse con 1, 2.5 y 5 de
 ## 5. Observaciones
 
 - **Las reglas son para un modelo aproximado.** El IPD reemplaza dos polos de la planta por un retardo; por eso el sobrepico real puede ser mayor que el que anuncia el libro.
-- **Linealidad.** Los tres $K_m$ difieren menos de 1 % (0.6075, 0.610 y 0.613), de modo que el modelo IPD es válido en el rango de 1 a 5 V ensayado.
+- **Linealidad.** Los tres $K_m$ difieren menos de 1 % (0.6075, 0.6111 y 0.6130), de modo que el modelo IPD es válido en el rango de 1 a 5 V ensayado.
+- **Bloque IPD de los modelos.** En `ControladoresLibro.slx` el bloque IPD de los tres ensayos usa $0.6075/s$ con retardo de 0.0464 s; las ganancias de los controladores se calcularon con el $K_m$ promedio (0.610).

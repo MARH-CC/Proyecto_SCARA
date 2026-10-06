@@ -15,20 +15,30 @@ $$
 
 ## 0. Contenido
 
+<div align="center">
+
 | Archivo | Descripción |
 |---|---|
 | `AsignacionPolos.slx` | Modelo Simulink con los dos lazos cerrados (PI y PID) |
-| `images/` | Manuscritos del desarrollo, captura del modelo y figuras de verificación |
+| `images/` | Captura del modelo y figuras del diseño y la verificación |
+
+</div>
 
 <p align="center">
-  <img src="images/modelo_asignacion_polos.png" alt="Modelo Simulink AsignacionPolos" width="520">
+  <img src="images/modelo_asignacion_polos.png" alt="Modelo Simulink AsignacionPolos" width="400">
 </p>
 
 ---
 
 ## 1. Lazo cerrado con el controlador PID
 
-Se parte del lazo con realimentación unitaria. Se agrupa el controlador en una sola fracción y se multiplica por la planta:
+Se parte del lazo con realimentación unitaria:
+
+<p align="center">
+  <img src="images/lazo_cerrado.png" alt="Lazo cerrado con el controlador PID y la planta del motor" width="720">
+</p>
+
+Se agrupa el controlador en una sola fracción y se multiplica por la planta:
 
 $$
 C(s)=K_p+\frac{K_i}{s}+K_d\,s=\frac{K_d\,s^2+K_p\,s+K_i}{s}
@@ -49,17 +59,13 @@ Dos cosas importantes de este polinomio:
 1. Es de **cuarto orden** (los 3 polos de la planta + el integrador del controlador), así que hay **cuatro polos** que ubicar.
 2. Los parámetros del controlador solo aparecen en los coeficientes de $s^2$, $s^1$ y $s^0$. El coeficiente de $s^3$ **siempre vale 2500**, sin importar $K_p$, $K_i$, $K_d$; es decir, la **suma de los cuatro polos queda fija en −2500**.
 
-<p align="center">
-  <img src="images/polos_pid_manuscrito.png" alt="Manuscrito: asignación de polos PID" width="560">
-</p>
-
 ---
 
 ## 2. Diseño del PID
 
 ### 2.1 Especificaciones y par de polos dominante
 
-Se pide $\zeta=0.96$ y $t_s=0.33$ s (criterio del 2 %, $t_s\approx 4/(\zeta\omega_n)$):
+Se piden $\zeta=0.96$ y $t_s=0.33$ s (criterio del 2 %). La frecuencia natural se obtiene de:
 
 $$
 \omega_n=\frac{4}{\zeta\,t_s}=\frac{4}{0.96\cdot0.33}\approx12.64\ \text{rad/s}
@@ -109,10 +115,6 @@ $$
 ---
 
 ## 3. Diseño del PI
-
-<p align="center">
-  <img src="images/polos_pi_manuscrito.png" alt="Manuscrito: asignación de polos PI" width="520">
-</p>
 
 Con $C(s)=K_p+K_i/s$ el polinomio característico es
 
@@ -174,7 +176,11 @@ Los valores del manuscrito se comprobaron numéricamente:
 - El controlador PID tiene dos ceros, en ≈ −82 y en **≈ −0.224**. Este último queda **casi encima del polo lento** (−0.231): se cancelan casi por completo, y lo que queda es una cola de baja amplitud.
 
 <p align="center">
-  <img src="images/polos_escalon_unitario.png" alt="Respuesta al escalón unitario del PID y el PI por asignación de polos" width="760">
+  <img src="images/mapa_polos.png" alt="Mapa de polos y ceros del diseño PID" width="720">
+</p>
+
+<p align="center">
+  <img src="images/polos_escalon_unitario.png" alt="Respuesta al escalón unitario del PID y el PI por asignación de polos" width="640">
 </p>
 
 Respuesta al escalón unitario (arriba, 30 s; abajo, zoom a 1.5 s), simulada con el filtro derivativo $N=100$ de los bloques de Simulink:
@@ -188,7 +194,7 @@ Respuesta al escalón unitario (arriba, 30 s; abajo, zoom a 1.5 s), simulada con
 
 </div>
 
-**Lo que se cumple y lo que no.** El tiempo de subida y el amortiguamiento diseñados se cumplen: el PID alcanza el 98 % de la referencia a los 0.34 s, casi exactamente el $t_s=0.33$ s pedido. Pero el **polo lento ($pprox-0.23$)** impone una cola que decae con constante de tiempo de ≈ 4.3 s, por lo que el **Ts observado en el osciloscopio** (9 – 14 s en `Analisis5Metodos.xlsx`) es mucho mayor que el de diseño. Esa cola aparece en la comparación general como el principal punto débil de este método. Es consecuencia directa de la restricción de la suma de polos: con la planta dada, si el par dominante es rápido y $p_3pprox-2477$, el cuarto polo **tiene** que quedar cerca del origen.
+**Lo que se cumple y lo que no.** El tiempo de subida y el amortiguamiento diseñados se cumplen: el PID alcanza el 98 % de la referencia a los 0.34 s, casi exactamente el $t_s=0.33$ s pedido. Pero el **polo lento ($\approx-0.23$)** impone una cola que decae con constante de tiempo de ≈ 4.3 s, por lo que el **Ts observado en el osciloscopio** (9 – 14 s en `Analisis5Metodos.xlsx`) es mucho mayor que el de diseño. Esa cola aparece en la comparación general como el principal punto débil de este método. Es consecuencia directa de la restricción de la suma de polos: con la planta dada, si el par dominante es rápido y $p_3\approx-2477$, el cuarto polo **tiene** que quedar cerca del origen.
 
 ---
 

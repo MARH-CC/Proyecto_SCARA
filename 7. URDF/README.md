@@ -40,10 +40,14 @@ Ensamble SolidWorks ──► SW2URDF ──► URDF + mallas STL ──► Pyth
 
 ## 1. Instalación del exportador (`Exporter/`)
 
+<div align="center">
+
 | Archivo | Para qué sirve |
 |---|---|
 | `sw2urdfSetup.exe` | **Instalador** del complemento. Es el único que se necesita para exportar: se ejecuta con SolidWorks cerrado y deja instalado el add-in *SW2URDF*. |
 | `solidworks_urdf_exporter-1.6.1.zip` / `.tar.gz` | **Código fuente** de la versión 1.6.1 (el mismo contenido empaquetado en dos formatos). Se guarda como respaldo por si se necesita recompilar o consultar cómo funciona. |
+
+</div>
 
 Después de instalar, hay que **activar el complemento** en SolidWorks: `Herramientas → Complementos…` y marcar **SW2URDF** (casilla de la izquierda para activarlo ahora, casilla *Iniciar* para que cargue siempre).
 
@@ -63,6 +67,8 @@ El exportador **no adivina** dónde están las articulaciones: hay que dejarlas 
   <img src="images/sw_01_arbol_ensamblaje.png" alt="Árbol del ensamble con sistemas de coordenadas y ejes" width="380">
 </p>
 
+<div align="center">
+
 | Elemento del árbol | Qué es |
 |---|---|
 | `(f) Parte1<1>` | Primer eslabón, **fijo** (`f`): es la base del robot y no se mueve. |
@@ -70,6 +76,8 @@ El exportador **no adivina** dónde están las articulaciones: hay que dejarlas 
 | `Sistema de coordenadas5 … 8` | Un sistema de coordenadas por articulación. Define el **origen y la orientación** del joint. El 5 es el origen global de la base y el 8 es el de la cremallera; los otros dos corresponden a los joints P2 y P3. |
 | `Axis_JointP2`, `Axis_JointP3`, `Axis_JointCremallera` | **Ejes de movimiento** de cada articulación (creados a partir de un croquis 3D: `Croquis3D12/13/14`). |
 | `URDF Export Configuration (v1.4)` | Configuración que el propio exportador guarda en el ensamble para no tener que repetirla. |
+
+</div>
 
 > **Regla práctica:** si el sistema de coordenadas o el eje de un joint no existen antes de abrir el exportador, hay que cancelar, crearlos y volver a empezar. El exportador mismo lo advierte en su ventana de configuración.
 
@@ -126,6 +134,8 @@ Con **Preview and Export…** aparece la ventana *Configure Joint Properties*, d
 
 Qué significa cada bloque (ejemplo `JointCremallera`):
 
+<div align="center">
+
 | Campo | Valor | Significado |
 |---|---|---|
 | **Parent / Child Link** | `Parte3` / `Cremallera` | Quién arrastra a quién. |
@@ -133,6 +143,8 @@ Qué significa cada bloque (ejemplo `JointCremallera`):
 | **Origin – Orientation (rad)** | Roll $=-3.1416$ | Giro de $-\pi$ alrededor de $x$: deja el eje $z$ de la cremallera apuntando **hacia abajo** (ver sección 5.2). |
 | **Axis** | $(0,\ 0,\ 1)$ | Eje de movimiento, en el sistema del joint. |
 | **Limit** | lower / upper, effort, velocity | Recorrido máximo y límites de fuerza y velocidad. |
+
+</div>
 
 > Los campos en blanco (calibración, dinámica, controlador de seguridad) **no se escriben** en el URDF.
 >
@@ -146,6 +158,8 @@ Con **Next** se completa el asistente y se elige la carpeta de destino. El expor
 
 ## 4. Qué genera el exportador
 
+<div align="center">
+
 | Archivo / carpeta | Contenido |
 |---|---|
 | `urdf/EnsamblajeFinal.SLDASM.urdf` | **El modelo**: links, joints, masas e inercias. |
@@ -153,6 +167,8 @@ Con **Next** se completa el asistente y se elige la carpeta de destino. El expor
 | `meshes/*.STL` | Una malla por link: `BaseFija`, `Parte2`, `Parte3`, `Cremallera`. Cada una está expresada en el **sistema de coordenadas de su link**. |
 | `package.xml`, `CMakeLists.txt`, `launch/`, `config/` | Esqueleto de paquete ROS (catkin) para usarlo con `roslaunch`. |
 | `export.log` | Registro de todo lo que hizo el exportador (útil si algo falla). |
+
+</div>
 
 Las rutas de las mallas dentro del URDF aparecen como `package://EnsamblajeFinal.SLDASM/meshes/…`. Esa sintaxis es la de ROS; fuera de ROS hay que traducirla a una ruta local (lo hacen los scripts de la sección 6).
 
@@ -166,12 +182,16 @@ El URDF se lee de forma muy parecida a la tabla DH: **un `link` por eslabón** y
 
 ### 5.1 Links
 
+<div align="center">
+
 | Link | Mesh | Masa [kg] | Rol |
 |---|---|---|---|
 | `BaseFija` | `BaseFija.STL` | 1.2446 | Base fija |
 | `Parte2` | `Parte2.STL` | 0.24392 | Eslabón 1 ($l_1$) |
 | `Parte3` | `Parte3.STL` | 0.23017 | Eslabón 2 ($l_2$) |
 | `Cremallera` | `Cremallera.STL` | 0.059831 | Eje prismático (sube y baja) |
+
+</div>
 
 Cada link trae también su **centro de masa** y su **tensor de inercia** (calculados por SolidWorks), necesarios si se quiere simular dinámica.
 
@@ -251,11 +271,15 @@ python URDFMOV.py
 
 Abre PyBullet con tres sliders:
 
+<div align="center">
+
 | Slider | Joint | Rango |
 |---|---|---|
 | `JointP2 (theta1)` | 0 | −π … π rad |
 | `JointP3 (theta2)` | 1 | −π … π rad |
 | `JointCremallera (d3)` | 2 | 0 … 0.054 m |
+
+</div>
 
 En la consola se imprime en tiempo real $\theta_1$, $\theta_2$, $d_3$ y la **posición de la punta** $(X, Y, Z)$ en cm, calculada con la fórmula de la sección 5.2 (origen del frame del link + $h_4$ a lo largo de su eje $z$).
 

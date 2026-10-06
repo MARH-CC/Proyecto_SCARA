@@ -10,11 +10,15 @@ Se usó un relé **con histéresis $\varepsilon$** y se repitió el experimento 
 
 ## 0. Contenido
 
+<div align="center">
+
 | Archivo | Descripción |
 |---|---|
 | `MetodoRele.slx` | Modelo Simulink: experimento del relé + 36 lazos cerrados (6 histéresis × 6 controladores) |
 | `Sintonizacion_Rele.xlsx` | Datos medidos, cálculo de ganancias y análisis de desempeño (hojas *Datos*, *PI*, *PID*, *Análisis*) |
 | `images/` | Capturas del modelo, tablas de reglas y figuras de verificación |
+
+</div>
 
 ---
 
@@ -25,10 +29,10 @@ Se usó un relé **con histéresis $\varepsilon$** y se repitió el experimento 
 Se aplica a la planta $G(s)$ realimentación **negativa con un relé** de amplitud $d$ e histéresis $\varepsilon$. La salida oscila con **amplitud $a$** y **periodo $P_u$**, mientras la señal de control es una onda cuadrada de $\pm d$.
 
 <p align="center">
-  <img src="images/rele_ciclo_limite.png" alt="Ciclo límite del relé para epsilon 0.1, 0.5 y 1" width="720">
+  <img src="images/rele_ciclo_limite.png" alt="Ciclo límite del relé para epsilon 0.1, 0.5 y 1" width="640">
 </p>
 
-*(Simulación con la planta del motor y $d=5$ V. Se ve cómo al crecer $\varepsilon$ aumentan la amplitud y el periodo.)*
+Simulación con la planta del motor y $d=5$ V. Se ve cómo, al crecer $\varepsilon$, aumentan la amplitud y el periodo.
 
 ### 1.2 Ganancia última
 
@@ -47,7 +51,7 @@ El periodo último $P_u$ es el periodo de la oscilación.
 La histéresis cambia el punto de operación del ciclo límite: con $\varepsilon$ pequeño se identifica un punto de **más alta frecuencia** (mayor $K_u$, menor $P_u$), y con $\varepsilon$ grande uno de **menor frecuencia**. Como el punto elegido es el que se usa para sintonizar, cada $\varepsilon$ produce un juego distinto de ganancias, y de ahí el análisis de las secciones 3 y 4.
 
 <p align="center">
-  <img src="images/rele_Ku_Pu_vs_eps.png" alt="Ku y Pu en función de epsilon" width="640">
+  <img src="images/rele_Ku_Pu_vs_eps.png" alt="Ku y Pu en función de epsilon" width="560">
 </p>
 
 ---
@@ -89,7 +93,7 @@ Relé de amplitud **$d=5$ V**, planta $G(s)=33792/(s^3+2500s^2+55822s)$. $P_u$ y
 ### Modelo del experimento
 
 <p align="center">
-  <img src="images/modelo_rele_analisis_histeresis.png" alt="Bloque Método Relé Análisis de Histéresis" width="360">
+  <img src="images/panel_analisis_histeresis.png" alt="Bloque Método Relé Análisis de Histéresis" width="240">
 </p>
 
 El bloque *Método Relé Análisis de Histéresis* de `MetodoRele.slx` contiene **seis lazos idénticos**, cada uno con un `Relay` de salida ±5 y umbral $\pm\varepsilon$ (`e=0.1 … e=1`) cerrado sobre la misma planta, con un scope para leer $P_u$ y $A_u$.
@@ -115,11 +119,19 @@ Con $K_u$ y $P_u$ se calcularon controladores con cuatro familias de reglas. Par
 
 Son **seis controladores por cada $\varepsilon$**: Z-N (P), Z-N (PI), Z-N (PID), Smith (PID), Tan (PID) y Corripio (PID); en total **36 combinaciones**. Cada una se simuló en lazo cerrado con la planta y se registraron el **sobreimpulso MS** y el **tiempo de asentamiento Ts**.
 
-<p align="center">
-  <img src="images/modelo_rele_e1.png" alt="Panel e=1: seis controladores en lazo cerrado" width="520">
-</p>
+Cada panel del modelo (`e=0.1 … e=1`) pone los seis controladores en paralelo sobre la misma planta y la misma referencia (de arriba hacia abajo: Z-N P, Z-N PI, Z-N PID, Smith, Tan y Corripio):
 
-Cada panel del modelo (`e=0.1 … e=1`) pone los seis controladores en paralelo sobre la misma planta y la misma referencia. La figura es el panel `e=1`.
+<div align="center">
+
+| $\varepsilon=0.1$ | $\varepsilon=0.2$ | $\varepsilon=0.3$ |
+|:-:|:-:|:-:|
+| <img src="images/panel_e0p1.png" alt="Panel e=0.1" width="260"> | <img src="images/panel_e0p2.png" alt="Panel e=0.2" width="260"> | <img src="images/panel_e0p3.png" alt="Panel e=0.3" width="260"> |
+
+| $\varepsilon=0.5$ | $\varepsilon=0.7$ | $\varepsilon=1$ |
+|:-:|:-:|:-:|
+| <img src="images/panel_e0p5.png" alt="Panel e=0.5" width="260"> | <img src="images/panel_e0p7.png" alt="Panel e=0.7" width="260"> | <img src="images/panel_e1.png" alt="Panel e=1" width="260"> |
+
+</div>
 
 ---
 
@@ -240,5 +252,5 @@ Este controlador es el que entra a la comparación final con los otros cuatro m�
 - **Modelo.** En `MetodoRele.slx` hay además un panel *Best 3 Analysis* con los tres mejores lazos (Z-N P con $\varepsilon=1$, 0.7 y 0.5) en paralelo.
 
 <p align="center">
-  <img src="images/modelo_rele_general.png" alt="Vista general de MetodoRele.slx" width="780">
+  <img src="images/panel_best3.png" alt="Panel Best 3 Analysis de MetodoRele.slx" width="380">
 </p>
