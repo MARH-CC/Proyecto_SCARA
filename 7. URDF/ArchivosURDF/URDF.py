@@ -1,33 +1,20 @@
 import os
 import yourdfpy
 
-BASE_DIR = r"C:\Users\agust\Downloads\EnsamblajeFinal.SLDASM"
+# Carpeta de este script (las rutas son relativas, funciona al clonar el repo)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+URDF_FILE = os.path.join(BASE_DIR, "urdf", "EnsamblajeFinal.SLDASM.urdf")
+PREFIJO = "package://EnsamblajeFinal.SLDASM/"
 
-URDF_FILE = os.path.join(
-    BASE_DIR,
-    "EnsamblajeFinal_SLDASM.urdf"
-)
 
 def resolver_ruta(fname):
+    """Convierte package://EnsamblajeFinal.SLDASM/meshes/X.STL en una ruta local."""
+    if fname.startswith(PREFIJO):
+        fname = fname.replace(PREFIJO, "")
+    return os.path.join(BASE_DIR, fname)
 
-    print("Buscando:", fname)
 
-    if fname.startswith("package://EnsamblajeFinal.SLDASM/"):
-        fname = fname.replace(
-            "package://EnsamblajeFinal.SLDASM/",
-            ""
-        )
-
-    ruta_final = os.path.join(BASE_DIR, fname)
-
-    print("Ruta final:", ruta_final)
-
-    return ruta_final
-
-robot = yourdfpy.URDF.load(
-    URDF_FILE,
-    filename_handler=resolver_ruta
-)
+robot = yourdfpy.URDF.load(URDF_FILE, filename_handler=resolver_ruta)
 
 print("\n=== LINKS ===")
 for name in robot.link_map:
@@ -35,8 +22,6 @@ for name in robot.link_map:
 
 print("\n=== JOINTS ===")
 for name, joint in robot.joint_map.items():
-    print(
-        f"{name}: {joint.type} | eje={joint.axis}"
-    )
+    print(f"{name}: {joint.type} | eje={joint.axis} | origen={joint.origin[:3, 3]}")
 
 robot.show()
